@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getPost } from '../services';
 
 interface PostPageProps {
@@ -9,13 +9,13 @@ export const PostPage: React.FC<PostPageProps> = ({ id, goBack }) => {
   const [post, setPost] = useState<IPost>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setIsLoading(false);
     getPost(id).then((data) => {
       setPost(data);
       setIsLoading(false);
     });
-  });
+  }, []);
 
   return isLoading ? (
     <></>
