@@ -1,4 +1,4 @@
-import { PostListItem } from './PostListItem';
+import { PostListItem } from '../components/PostListItem';
 
 interface PostsListProps {
   list: TPostArray;
