@@ -10,7 +10,6 @@ export const PostPage: React.FC<PostPageProps> = ({ id, goBack }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    setIsLoading(false);
     getPost(id).then((data) => {
       setPost(data);
       setIsLoading(false);
