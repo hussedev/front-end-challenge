@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getPost, getPosts } from './services';
 
+const MAX_BODY_SIZE = 20;
+
 const App = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [selectedPost, setSelectedPost] = useState<IPost | null>(null);
@@ -12,6 +14,8 @@ const App = () => {
   const handleClick = (id: number) => {
     getPost(id).then((data) => setSelectedPost(data));
   };
+
+  const trimBody = (body: string) => (body.length > 20 ? `${body.slice(0, 20)}...` : body);
 
   return (
     <>
@@ -25,11 +29,11 @@ const App = () => {
       )}
       <h2>Post List</h2>
       <ul>
-        {posts.map((post) => (
-          <li key={post.id} onClick={() => handleClick(post.id)}>
-            <p>{`id: ${post.id} - user id: ${post.userId}`}</p>
-            <p>{`title: ${post.title}`}</p>
-            <p>{`body: ${post.body}`}</p>
+        {posts.map(({ id, userId, title, body }) => (
+          <li key={id} onClick={() => handleClick(id)}>
+            <p>{`id: ${id} - user id: ${userId}`}</p>
+            <p>{`title: ${title}`}</p>
+            <p>{`body: ${trimBody(body)}`}</p>
           </li>
         ))}
       </ul>
